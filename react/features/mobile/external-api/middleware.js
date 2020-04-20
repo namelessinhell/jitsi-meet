@@ -10,6 +10,10 @@ import {
     forEachConference,
     isRoomValid
 } from '../../base/conference';
+import {
+    PARTICIPANT_JOINED,
+    PARTICIPANT_LEFT
+} from '../../base/participants';
 import { LOAD_CONFIG_ERROR } from '../../base/config';
 import {
     CONNECTION_DISCONNECTED,
@@ -68,6 +72,19 @@ MiddlewareRegistry.register(store => next => action => {
         _sendConferenceEvent(store, action);
         break;
 
+    case PARTICIPANT_JOINED:
+    case PARTICIPANT_LEFT:{
+        if( action.participant != undefined && action.participant.id != undefined){
+            _sendConferenceEvent(store, {
+                type:type,
+                name: action.participant.name,
+                id: action.participant.id
+            });
+        }
+        break;
+    }
+
+
     case CONNECTION_DISCONNECTED: {
         // FIXME: This is a hack. See the description in the JITSI_CONNECTION_CONFERENCE_KEY constant definition.
         // Check if this connection was attached to any conference. If it wasn't, fake a CONFERENCE_TERMINATED event.
@@ -112,7 +129,7 @@ MiddlewareRegistry.register(store => next => action => {
     }
 
     case SET_ROOM:
-        _maybeTriggerEarlyConferenceWillJoin(store, action);
+       _maybeTriggerEarlyConferenceWillJoin(store, action);
         break;
     }
 

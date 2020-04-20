@@ -21,7 +21,9 @@ import {
     participantMutedUs,
     participantPresenceChanged,
     participantRoleChanged,
-    participantUpdated
+    participantUpdated,
+    participantJoined,
+    participantLeft
 } from '../participants';
 import { getLocalTracks, trackAdded, trackRemoved } from '../tracks';
 import {
@@ -98,6 +100,12 @@ function _addConferenceListeners(conference, dispatch) {
             dispatch(conferenceTimestampChanged(0));
             dispatch(conferenceLeft(conference, ...args));
         });
+    conference.on(
+        JitsiConferenceEvents.USER_JOINED,
+        (id, user) => commonUserJoinedHandling({ dispatch }, conference, user));
+    conference.on(
+        JitsiConferenceEvents.USER_LEFT,
+        (id, user) => commonUserLeftHandling({ dispatch }, conference, user));
     conference.on(JitsiConferenceEvents.SUBJECT_CHANGED,
         (...args) => dispatch(conferenceSubjectChanged(...args)));
 
@@ -179,12 +187,7 @@ function _addConferenceListeners(conference, dispatch) {
         JitsiConferenceEvents.PARTICIPANT_CONN_STATUS_CHANGED,
         (...args) => dispatch(participantConnectionStatusChanged(...args)));
 
-    conference.on(
-        JitsiConferenceEvents.USER_JOINED,
-        (id, user) => commonUserJoinedHandling({ dispatch }, conference, user));
-    conference.on(
-        JitsiConferenceEvents.USER_LEFT,
-        (id, user) => commonUserLeftHandling({ dispatch }, conference, user));
+
     conference.on(
         JitsiConferenceEvents.USER_ROLE_CHANGED,
         (...args) => dispatch(participantRoleChanged(...args)));

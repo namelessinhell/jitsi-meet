@@ -15,6 +15,8 @@ import { isToolboxVisible } from '../../functions';
 
 import AudioMuteButton from '../AudioMuteButton';
 import HangupButton from '../HangupButton';
+import AudioChangeButton from '../AudioChangeButton';
+import { AudioRouteButton } from '../../../../features/mobile/audio-mode';
 
 import OverflowMenuButton from './OverflowMenuButton';
 import styles from './styles';
@@ -113,7 +115,7 @@ class Toolbox extends PureComponent<Props> {
                 pointerEvents = 'box-none'
                 style = { styles.toolbar }>
                 {
-                    _chatEnabled
+                 /*   _chatEnabled
                         && <ChatButton
                             styles = { buttonStylesBorderless }
                             toggledStyles = {
@@ -124,19 +126,25 @@ class Toolbox extends PureComponent<Props> {
                     !_chatEnabled
                         && <InviteButton
                             styles = { buttonStyles }
-                            toggledStyles = { toggledButtonStyles } />
+                            toggledStyles = { toggledButtonStyles } />*/
                 }
-                <AudioMuteButton
+                <AudioRouteButton
                     styles = { buttonStyles }
                     toggledStyles = { toggledButtonStyles } />
                 <HangupButton
                     styles = { hangupButtonStyles } />
-                <VideoMuteButton
+                <AudioMuteButton
                     styles = { buttonStyles }
                     toggledStyles = { toggledButtonStyles } />
-                <OverflowMenuButton
+                {
+                /*<VideoMuteButton
+                    styles = { buttonStyles }
+                toggledStyles = { toggledButtonStyles } />*/
+                }
+               {/* <OverflowMenuButton
                     styles = { buttonStylesBorderless }
-                    toggledStyles = { toggledButtonStyles } />
+                    toggledStyles = { toggledButtonStyles } />*/
+               }
             </View>
         );
     }

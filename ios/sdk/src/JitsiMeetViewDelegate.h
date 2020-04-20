@@ -55,4 +55,7 @@
  */
 - (void)enterPictureInPicture:(NSDictionary *)data;
 
+
+- (void)participantJoined:(NSDictionary *)data;
+- (void)participantLeft:(NSDictionary *)data;
 @end

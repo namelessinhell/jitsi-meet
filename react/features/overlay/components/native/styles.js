@@ -46,10 +46,10 @@ ColorSchemeRegistry.register('LoadConfigOverlay', {
     indicatorColor: schemeColor('text'),
 
     loadingOverlayText: {
-        color: schemeColor('text')
+        color: 'rgba(0,20,29,1)'
     },
 
     loadingOverlayWrapper: {
-        backgroundColor: schemeColor('background')
+        backgroundColor: 'rgba(0,20,29,1)'
     }
 });

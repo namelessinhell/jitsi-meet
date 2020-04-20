@@ -31,7 +31,9 @@ type State = {
     /**
      * Value of current conference time.
      */
-    timerValue: string
+    timerValue: string,
+    timerVisible:Boolean,
+    timerStartValue : 0
 };
 
 /**
@@ -57,7 +59,8 @@ class ConferenceTimer extends Component<Props, State> {
         super(props);
 
         this.state = {
-            timerValue: getLocalizedDurationFormatter(0)
+            timerValue: getLocalizedDurationFormatter(0),
+            timerVisible: false
         };
     }
 
@@ -89,9 +92,12 @@ class ConferenceTimer extends Component<Props, State> {
      */
     render() {
         const { timerValue } = this.state;
-        const { _startTimestamp } = this.props;
+        const { _startTimestamp, timestamp } = this.props;
 
         if (!_startTimestamp) {
+            return null;
+        }
+        if( timestamp == 0 ) {
             return null;
         }
 
@@ -116,13 +122,18 @@ class ConferenceTimer extends Component<Props, State> {
             return;
         }
 
-        const timerMsValue = currentValueUTC - refValueUTC;
+        let timestamp = this.props.timestamp;
+        if( timestamp == 0 )
+            timestamp = refValueUTC;
+            const timerMsValue = currentValueUTC - timestamp;
 
-        const localizedTime = getLocalizedDurationFormatter(timerMsValue);
+            const localizedTime = getLocalizedDurationFormatter(timerMsValue);
 
-        this.setState({
-            timerValue: localizedTime
-        });
+            this.setState({
+                timerValue: localizedTime
+            });
+
+
     }
 
     /**
@@ -167,9 +178,14 @@ class ConferenceTimer extends Component<Props, State> {
  * }}
  */
 export function _mapStateToProps(state: Object) {
-
+    const _participants = state['features/base/participants'];
+    let timestamp = 0;
+    if( _participants.length > 1 ){
+        timestamp = _participants[1].timestamp;
+    }
     return {
-        _startTimestamp: getConferenceTimestamp(state)
+        _startTimestamp: getConferenceTimestamp(state),
+        timestamp: timestamp
     };
 }
 

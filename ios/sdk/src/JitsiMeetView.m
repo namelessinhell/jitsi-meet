@@ -152,19 +152,21 @@ static void initializeViewsMap() {
         // Update props with the new URL.
         rootView.appProperties = props;
     } else {
-        RCTBridge *bridge = [[JitsiMeet sharedInstance] getReactBridge];
-        rootView
-            = [[RNRootView alloc] initWithBridge:bridge
-                                      moduleName:@"App"
-                               initialProperties:props];
-        rootView.backgroundColor = self.backgroundColor;
+        dispatch_async(dispatch_get_main_queue(), ^{
+             RCTBridge *bridge = [[JitsiMeet sharedInstance] getReactBridge];
+            self->rootView
+                           = [[RNRootView alloc] initWithBridge:bridge
+                                                     moduleName:@"App"
+                                              initialProperties:props];
+            self->rootView.backgroundColor = self.backgroundColor;
 
-        // Add rootView as a subview which completely covers this one.
-        [rootView setFrame:[self bounds]];
-        rootView.autoresizingMask
-            = UIViewAutoresizingFlexibleWidth
-                | UIViewAutoresizingFlexibleHeight;
-        [self addSubview:rootView];
+                       // Add rootView as a subview which completely covers this one.
+            [self->rootView setFrame:[self bounds]];
+            self->rootView.autoresizingMask
+                           = UIViewAutoresizingFlexibleWidth
+                               | UIViewAutoresizingFlexibleHeight;
+            [self addSubview:self->rootView];
+        });
     }
 }
 

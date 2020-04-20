@@ -71,9 +71,13 @@ ReducerRegistry.register('features/base/participants', (state = [], action) => {
     case PIN_PARTICIPANT:
         return state.map(p => _participant(p, action));
 
-    case PARTICIPANT_JOINED:
-        return [ ...state, _participantJoined(action) ];
+    case PARTICIPANT_JOINED:{
+        if( action.participant != undefined && action.participant.id != undefined)
+        {
 
+        }
+        return [ ...state, _participantJoined(action) ];
+    }
     case PARTICIPANT_LEFT: {
         // XXX A remote participant is uniquely identified by their id in a
         // specific JitsiConference instance. The local participant is uniquely
@@ -198,6 +202,8 @@ function _participantJoined({ participant }) {
     } = participant;
     let { conference, id } = participant;
 
+    let timestamp = new Date().getTime();
+
     if (local) {
         // conference
         //
@@ -211,6 +217,7 @@ function _participantJoined({ participant }) {
     }
 
     return {
+        timestamp : timestamp,
         avatarID,
         avatarURL,
         botType,

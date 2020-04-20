@@ -3,8 +3,9 @@
 import { ColorSchemeRegistry, schemeColor } from '../../../base/color-scheme';
 import { BoxModel, ColorPalette } from '../../../base/styles';
 
+const NAVIGATION_BUTTON_SIZE = 30;
 const BUTTON_SIZE = 50;
-
+const HANG_BUTTON_SIZE = 60;
 // Toolbox, toolbar:
 
 /**
@@ -24,13 +25,40 @@ const toolbarButton = {
     marginHorizontal: 7,
     width: BUTTON_SIZE
 };
+const navigationBarButton = {
+    backgroundColor: 'transparent',
+    borderRadius: NAVIGATION_BUTTON_SIZE / 2,
+    borderWidth: 0,
+    flex: 0,
+    flexDirection: 'row',
+    height: NAVIGATION_BUTTON_SIZE,
+    justifyContent: 'center',
 
+    // XXX We probably tested BoxModel.margin and discovered it to be too small
+    // for our taste.
+    marginHorizontal: 7,
+    width: NAVIGATION_BUTTON_SIZE
+};
+const hangToolbarButton = {
+    backgroundColor: schemeColor('button'),
+    borderRadius: HANG_BUTTON_SIZE / 2,
+    borderWidth: 0,
+    flex: 0,
+    flexDirection: 'row',
+    height: HANG_BUTTON_SIZE,
+    justifyContent: 'center',
+
+    // XXX We probably tested BoxModel.margin and discovered it to be too small
+    // for our taste.
+    marginHorizontal: 7,
+    width: HANG_BUTTON_SIZE
+};
 /**
  * The icon style of the toolbar buttons.
  */
 const toolbarButtonIcon = {
     alignSelf: 'center',
-    color: ColorPalette.darkGrey,
+    color: '#ffffff',
     fontSize: 22
 };
 
@@ -43,11 +71,19 @@ const whiteToolbarButton = {
 };
 
 /**
+ * The icon style of toolbar buttons which display yellow icons.
+ */
+const yellowToolbarButtonIcon = {
+    ...toolbarButtonIcon,
+    color: '#f8991d'
+};
+
+/**
  * The icon style of toolbar buttons which display white icons.
  */
 const whiteToolbarButtonIcon = {
     ...toolbarButtonIcon,
-    color: ColorPalette.white
+    color: '#ffffff'
 };
 
 /**
@@ -123,7 +159,7 @@ ColorSchemeRegistry.register('Toolbox', {
     hangupButtonStyles: {
         iconStyle: whiteToolbarButtonIcon,
         style: {
-            ...toolbarButton,
+            ...hangToolbarButton,
             backgroundColor: schemeColor('hangup')
         },
         underlayColor: ColorPalette.buttonUnderlay
@@ -133,11 +169,20 @@ ColorSchemeRegistry.register('Toolbox', {
      * Styles for toggled buttons in the toolbar.
      */
     toggledButtonStyles: {
-        iconStyle: whiteToolbarButtonIcon,
+        iconStyle: yellowToolbarButtonIcon,
         style: {
             ...whiteToolbarButton,
             borderColor: schemeColor('buttonToggledBorder'),
             borderWidth: 1
+        }
+    },
+
+    navigationBarButtonStyles: {
+        iconStyle: yellowToolbarButtonIcon,
+        style: {
+            ...navigationBarButton,
+            backgroundColor: 'transparent',
+            borderWidth: 0
         }
     }
 });

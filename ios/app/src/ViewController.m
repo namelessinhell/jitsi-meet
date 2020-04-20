@@ -53,7 +53,14 @@
         name);
 #endif
 }
-
+- (void)participantJoined:(NSDictionary *)data{
+  int i = 0;
+  i = i + 1;
+}
+- (void)participantLeft:(NSDictionary *)data{
+  int i = 0;
+  i = i + 1;
+}
 - (void)conferenceJoined:(NSDictionary *)data {
     [self _onJitsiMeetViewDelegateEvent:@"CONFERENCE_JOINED" withData:data];
 

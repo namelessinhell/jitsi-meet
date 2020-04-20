@@ -20,7 +20,6 @@ export function sendEvent(store: Object, name: string, data: Object) {
     // the native ExternalAPI module so that the latter may match the former to
     // the native view which hosts it.
     const externalAPIScope = getAppProp(store, 'externalAPIScope');
-
     externalAPIScope
         && NativeModules.ExternalAPI.sendEvent(name, data, externalAPIScope);
 }

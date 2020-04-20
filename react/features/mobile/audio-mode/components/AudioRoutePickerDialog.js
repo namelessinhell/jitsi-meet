@@ -260,7 +260,7 @@ class AudioRoutePickerDialog extends Component<Props, State> {
     _renderDevice(device: Device) {
         const { _bottomSheetStyles } = this.props;
         const { icon, selected, text } = device;
-        const selectedStyle = selected ? styles.selectedText : {};
+        const selectedStyle = selected ? styles.selectedText : styles.unselectedText;
 
         return (
             <TouchableHighlight

@@ -45,8 +45,11 @@
 
     jitsiMeet.defaultConferenceOptions = [JitsiMeetConferenceOptions fromBuilder:^(JitsiMeetConferenceOptionsBuilder *builder) {
         builder.serverURL = [NSURL URLWithString:@"https://meet.jit.si"];
-        builder.welcomePageEnabled = YES;
-
+        builder.welcomePageEnabled = NO;
+      builder.audioOnly = NO;
+      builder.room = @"testtest";
+      JitsiMeetUserInfo* userInfo = [[JitsiMeetUserInfo alloc] initWithDisplayName:@"Test2" andEmail:nil andAvatar:nil];
+      builder.userInfo = userInfo;
         // Apple rejected our app because they claim requiring a
         // Dropbox account for recording is not acceptable.
 #if DEBUG

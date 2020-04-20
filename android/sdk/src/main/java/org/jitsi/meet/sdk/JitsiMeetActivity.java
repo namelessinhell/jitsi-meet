@@ -224,4 +224,12 @@ public class JitsiMeetActivity extends FragmentActivity
     public void onConferenceWillJoin(Map<String, Object> data) {
         JitsiMeetLogger.i("Conference will join: " + data);
     }
+    @Override
+    public void onParticipantJoined(Map<String, Object> data){
+
+    }
+    @Override
+    public void onParticipantLeft(Map<String, Object> data){
+
+    }
 }
